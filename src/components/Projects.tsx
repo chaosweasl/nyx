@@ -45,21 +45,29 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     );
   }
 
-  const baseCardClasses = "group relative border rounded-xl p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent-terracotta h-full flex flex-col justify-between";
-  const featuredClasses = "border-t-4 md:border-t md:border-l-4 border-accent-terracotta border-b-text-ink/10 border-r-text-ink/10 md:border-r-text-ink/10 md:border-b-text-ink/10 bg-accent-terracotta/5 md:col-span-2";
-  const standardClasses = "border-text-ink/10 bg-white/40 overflow-hidden";
+  const baseCardClasses = "group relative border rounded-sm p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-[8px_8px_0_rgba(200,95,56,0.2)] hover:border-accent-terracotta h-full flex flex-col justify-between";
+  const featuredClasses = "border-t-4 md:border-t-4 md:border-l-0 border-accent-terracotta border-b-text-ink/20 border-r-text-ink/20 border-l-text-ink/20 bg-[#f4ebe1] md:col-span-2 shadow-[4px_4px_0_rgba(28,25,23,0.05)]";
+  const standardClasses = "border-text-ink/20 bg-white/60 overflow-hidden shadow-[4px_4px_0_rgba(28,25,23,0.05)]";
 
   return (
     <div className={`${baseCardClasses} ${isFeatured ? featuredClasses : standardClasses}`}>
+      {/* Hand-drawn sketchy accent corners */}
+      <svg className="absolute top-0 left-0 w-4 h-4 text-accent-terracotta opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4h16v16" />
+      </svg>
+      <svg className="absolute bottom-0 right-0 w-4 h-4 text-accent-terracotta opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 20H4V4" />
+      </svg>
+
       {!isFeatured && project.numeral && (
-        <span className="absolute -bottom-6 -right-4 font-heading text-[10rem] leading-none text-text-ink/5 -rotate-12 pointer-events-none select-none">
+        <span className="absolute -bottom-6 -right-4 font-heading text-[12rem] leading-none text-text-ink/5 -rotate-12 pointer-events-none select-none group-hover:text-accent-terracotta/10 transition-colors duration-500">
           {project.numeral}
         </span>
       )}
 
       <div>
         <div className="flex justify-between items-start mb-4 relative z-10">
-          <h3 className="font-heading text-3xl text-text-ink">
+          <h3 className="font-heading text-3xl md:text-4xl text-text-ink group-hover:text-accent-terracotta transition-colors duration-300">
             {project.title}
           </h3>
           <div className="flex gap-4">

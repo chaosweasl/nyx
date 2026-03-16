@@ -34,10 +34,10 @@ const Blog: React.FC = () => {
             </div>
 
             <div className="flex flex-col md:flex-row md:items-baseline flex-grow gap-2 md:gap-4 relative">
-              <div className="flex items-center gap-3 mb-1 md:mb-0">
+              <div className="flex items-center gap-3 mb-1 md:mb-0 flex-grow">
                 {post.category && (
                   <span
-                    className={`px-2 py-0.5 text-[10px] font-mono uppercase tracking-widest rounded bg-secondary-sage/10 text-secondary-sage`}
+                    className={`px-2 py-0.5 text-[10px] font-mono uppercase tracking-widest rounded-sm bg-text-ink/5 text-text-ink/60 border border-text-ink/10`}
                   >
                     {post.category}
                   </span>
@@ -46,7 +46,7 @@ const Blog: React.FC = () => {
                   {post.title}
                 </h3>
               </div>
-              <p className="text-sm md:text-base text-text-ink/50 font-body">
+              <p className="text-sm md:text-base text-text-ink/50 font-body md:text-right mt-1 md:mt-0 flex-shrink-0 md:max-w-[40%]">
                 {post.teaser}
               </p>
             </div>
@@ -54,12 +54,12 @@ const Blog: React.FC = () => {
             <AnimatePresence>
               {hoveredIndex === idx && post.comingSoon && (
                 <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -10 }}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 bg-text-ink text-bg-cream text-xs px-3 py-1 rounded hidden md:block"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="absolute -right-4 -top-6 bg-accent-terracotta text-bg-cream text-xs px-2 py-1 font-mono uppercase tracking-widest rotate-[15deg] hidden md:block shadow-md z-10"
                 >
-                  Coming soon
+                  Draft
                 </motion.div>
               )}
             </AnimatePresence>

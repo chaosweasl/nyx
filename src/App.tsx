@@ -11,6 +11,7 @@ function App() {
     <>
       <CustomCursor />
       <div className="noise-overlay pointer-events-none"></div>
+      <div className="grid-overlay pointer-events-none"></div>
       <main className="relative z-10 w-full overflow-hidden">
         <Hero />
         <About />

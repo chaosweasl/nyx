@@ -37,22 +37,22 @@ const Experience: React.FC = () => {
                   {/* Timeline Dot */}
                   <div className="absolute top-2 md:top-2 -right-2 md:right-[-9px] flex items-center justify-center">
                     {entry.upcoming ? (
-                      <div className="w-3 h-3 rounded-full border-2 border-accent-terracotta bg-bg-cream z-10" />
+                      <div className="w-4 h-4 rounded-none border-2 border-accent-terracotta bg-bg-cream z-10 rotate-45" />
                     ) : (
-                      <div className="w-3 h-3 rounded-full bg-text-ink/30 z-10" />
+                      <div className="w-3 h-3 rounded-sm bg-text-ink/30 z-10 rotate-[15deg]" />
                     )}
                   </div>
 
                   {/* Dashed line segment (not on the last item) */}
                   {!isLast && (
-                    <div className="absolute top-6 bottom-[-3rem] md:bottom-[-4rem] right-[-4px] w-[1px] border-l-2 border-dashed border-text-ink/10" />
+                    <div className="absolute top-8 bottom-[-3rem] md:bottom-[-4rem] right-[-4px] w-[2px] border-l-[1.5px] border-dotted border-text-ink/20" />
                   )}
                 </div>
 
                 {/* Content Column */}
-                <div className="pl-4 md:pl-0 pt-1 md:pt-0">
+                <div className="pl-4 md:pl-0 pt-1 md:pt-0 group">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                    <h3 className={`font-heading text-2xl ${entry.upcoming ? "text-text-ink" : "text-text-ink"}`}>
+                    <h3 className={`font-heading text-2xl transition-colors duration-300 ${entry.upcoming ? "text-text-ink group-hover:text-secondary-sage" : "text-text-ink group-hover:text-accent-terracotta"}`}>
                       {entry.role}
                     </h3>
 
