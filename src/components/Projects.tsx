@@ -16,8 +16,7 @@ const CardImagePlaceholder: React.FC<{ title: string }> = ({ title }) => (
             cx={col * 26 + 13}
             cy={row * 22 + 11}
             r="1.5"
-            fill="#C85F38"
-            fillOpacity="0.12"
+            className="fill-accent-terracotta/10"
           />
         )),
       )}
@@ -35,7 +34,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     return (
       <div className="group relative border border-text-ink/10 rounded-xl p-8 bg-text-ink/5 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-text-ink/30 h-full flex flex-col">
         {project.numeral && (
-          <span className="absolute -bottom-6 -right-4 font-heading text-[10rem] leading-none text-text-ink/5 -rotate-12 pointer-events-none select-none">
+          <span className="absolute -bottom-6 -right-4 font-heading text-[10rem] leading-none text-text-ink/10 -rotate-12 pointer-events-none select-none">
             {project.numeral}
           </span>
         )}
@@ -108,7 +107,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       </svg>
 
       {!isFeatured && project.numeral && (
-        <span className="absolute -bottom-6 -right-4 font-heading text-[12rem] leading-none text-text-ink/5 -rotate-12 pointer-events-none select-none group-hover:text-accent-terracotta/10 transition-colors duration-500">
+        <span className="absolute -bottom-6 -right-4 font-heading text-[12rem] leading-none text-text-ink/10 -rotate-12 pointer-events-none select-none group-hover:text-accent-terracotta/20 transition-colors duration-500">
           {project.numeral}
         </span>
       )}

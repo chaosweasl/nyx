@@ -26,35 +26,39 @@ const Experience: React.FC = () => {
               className="relative"
             >
               {/* Desktop Timeline Layout Grid */}
-              <div className="flex flex-col md:grid md:grid-cols-[100px_1fr] gap-4 md:gap-8">
+              <div className="flex flex-col md:grid md:grid-cols-[100px_1fr] gap-6 md:gap-8">
                 {/* Year Column (Desktop) & Timeline Dot Container */}
-                <div className="relative flex items-center md:items-start md:justify-end">
-                  <span className="font-mono text-sm text-text-ink/40 md:mt-1 pr-6 md:pr-4">
+                <div className="relative flex flex-row md:flex-col md:items-end items-center">
+                  <span className="font-mono text-sm text-text-ink/40 md:mt-1 md:pr-8 pr-4">
                     {entry.year}
                   </span>
 
                   {/* Timeline cap on very first entry */}
                   {idx === 0 && (
-                    <div className="hidden md:block absolute -top-5 right-[-10px] w-[2px] h-5 bg-gradient-to-b from-accent-terracotta/60 to-transparent" />
+                    <div className="hidden md:block absolute -top-5 right-[13px] w-[2px] h-5 bg-gradient-to-b from-accent-terracotta/60 to-transparent" />
                   )}
 
                   {/* Timeline Dot */}
-                  <div className="absolute top-2 md:top-2 -right-2 md:right-[-9px] flex items-center justify-center">
+                  <div className="md:absolute static top-2.5 right-[8px] flex items-center justify-center z-10">
                     {entry.upcoming ? (
-                      <div className="w-4 h-4 rounded-none border-2 border-accent-terracotta bg-bg-cream z-10 rotate-45" />
+                      <div className="w-4 h-4 rounded-none border-2 border-accent-terracotta bg-bg-cream rotate-45" />
                     ) : (
-                      <div className="w-3 h-3 rounded-sm bg-text-ink/30 z-10 rotate-[15deg]" />
+                      <div className="w-3 h-3 rounded-sm bg-text-ink/30 rotate-[15deg]" />
                     )}
                   </div>
 
                   {/* Dashed line segment */}
                   {!isLast && (
-                    <div className="absolute top-8 bottom-[-3rem] md:bottom-[-4rem] right-[-4px] w-[2px] border-l-[1.5px] border-dotted border-text-ink/20" />
+                    <div className="hidden md:block absolute top-8 bottom-[-3rem] md:bottom-[-4rem] right-[13px] w-[2px] border-l-[1.5px] border-dotted border-text-ink/20" />
                   )}
                 </div>
 
                 {/* Content Column */}
-                <div className="pl-4 md:pl-0 pt-1 md:pt-0 group">
+                <div className="pl-6 md:pl-0 pt-1 md:pt-0 group relative border-l-[1.5px] border-dotted border-text-ink/20 md:border-l-0 ml-2 md:ml-0">
+                  {/* Dashed line segment for Mobile */}
+                  {!isLast && (
+                    <div className="block md:hidden absolute top-8 bottom-[-3rem] left-[-1.5px] w-[2px] border-l-[1.5px] border-dotted border-text-ink/20" />
+                  )}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                     <h3
                       className={`font-heading text-2xl transition-colors duration-300 ${entry.upcoming ? "text-text-ink group-hover:text-secondary-sage" : "text-text-ink group-hover:text-accent-terracotta"}`}

@@ -70,7 +70,7 @@ const About: React.FC = () => {
             ].map(({ value, label }) => (
               <div
                 key={label}
-                className="border border-text-ink/10 rounded-sm p-3 bg-bg-cream/40 shadow-[2px_2px_0_rgba(0,0,0,0.05)] dark:shadow-[2px_2px_0_rgba(255,255,255,0.05)] group hover:border-accent-terracotta/30 transition-colors duration-300"
+                className="border border-text-ink/10 rounded-sm p-3 bg-text-ink/5 shadow-[2px_2px_0_rgba(0,0,0,0.05)] dark:shadow-[2px_2px_0_rgba(255,255,255,0.05)] group hover:border-accent-terracotta/30 transition-colors duration-300"
               >
                 <div className="font-heading text-3xl text-accent-terracotta leading-none mb-1">
                   {value}
@@ -93,7 +93,7 @@ const About: React.FC = () => {
                   {group.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1.5 text-sm font-mono tracking-wide rounded-sm bg-bg-cream/50 border border-text-ink/20 text-text-ink/80 shadow-[2px_2px_0_rgba(0,0,0,0.05)] dark:shadow-[2px_2px_0_rgba(255,255,255,0.05)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--color-accent-terracotta)] hover:border-accent-terracotta transition-all duration-300 cursor-default"
+                      className="px-3 py-1.5 text-sm font-mono tracking-wide rounded-sm bg-text-ink/5 border border-text-ink/20 text-text-ink/80 shadow-[2px_2px_0_rgba(0,0,0,0.05)] dark:shadow-[2px_2px_0_rgba(255,255,255,0.05)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0_var(--color-accent-terracotta)] hover:border-accent-terracotta transition-all duration-300 cursor-default"
                     >
                       {tech}
                     </span>

@@ -47,8 +47,7 @@ const HeroDecoration: React.FC = () => (
         y1={i * 36 + 20}
         x2="800"
         y2={i * 36 + 20}
-        stroke="#1C1917"
-        strokeOpacity="0.025"
+        className="stroke-text-ink/5"
         strokeWidth="1"
       />
     ))}
@@ -58,8 +57,7 @@ const HeroDecoration: React.FC = () => (
       y1="0"
       x2="90"
       y2="600"
-      stroke="#C85F38"
-      strokeOpacity="0.04"
+      className="stroke-accent-terracotta/5"
       strokeWidth="1.5"
     />
 
@@ -69,8 +67,7 @@ const HeroDecoration: React.FC = () => (
       y="110"
       fontFamily="JetBrains Mono, monospace"
       fontSize="96"
-      fill="#1C1917"
-      fillOpacity="0.03"
+      className="fill-text-ink/5"
       letterSpacing="-4"
     >
       {"{}"}
@@ -81,24 +78,21 @@ const HeroDecoration: React.FC = () => (
       y="490"
       fontFamily="JetBrains Mono, monospace"
       fontSize="80"
-      fill="#C85F38"
-      fillOpacity="0.03"
+      className="fill-accent-terracotta/5"
     >
       {";"}
     </text>
     {/* Arrow doodle — mid right */}
     <path
       d="M 680 260 Q 700 280, 720 270"
-      stroke="#8BAF7C"
-      strokeOpacity="0.08"
+      className="stroke-secondary-sage/10"
       strokeWidth="2"
       fill="none"
       strokeLinecap="round"
     />
     <path
       d="M 714 263 L 720 270 L 712 275"
-      stroke="#8BAF7C"
-      strokeOpacity="0.08"
+      className="stroke-secondary-sage/10"
       strokeWidth="2"
       fill="none"
       strokeLinecap="round"
@@ -112,8 +106,7 @@ const HeroDecoration: React.FC = () => (
           cx={60 + col * 16}
           cy={430 + row * 16}
           r="1.5"
-          fill="#1C1917"
-          fillOpacity="0.04"
+          className="fill-text-ink/5"
         />
       )),
     )}
