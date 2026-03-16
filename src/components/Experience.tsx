@@ -27,12 +27,16 @@ const Experience: React.FC = () => {
             >
               {/* Desktop Timeline Layout Grid */}
               <div className="flex flex-col md:grid md:grid-cols-[100px_1fr] gap-4 md:gap-8">
-
                 {/* Year Column (Desktop) & Timeline Dot Container */}
                 <div className="relative flex items-center md:items-start md:justify-end">
                   <span className="font-mono text-sm text-text-ink/40 md:mt-1 pr-6 md:pr-4">
                     {entry.year}
                   </span>
+
+                  {/* Timeline cap on very first entry */}
+                  {idx === 0 && (
+                    <div className="hidden md:block absolute -top-5 right-[-10px] w-[2px] h-5 bg-gradient-to-b from-accent-terracotta/60 to-transparent" />
+                  )}
 
                   {/* Timeline Dot */}
                   <div className="absolute top-2 md:top-2 -right-2 md:right-[-9px] flex items-center justify-center">
@@ -43,7 +47,7 @@ const Experience: React.FC = () => {
                     )}
                   </div>
 
-                  {/* Dashed line segment (not on the last item) */}
+                  {/* Dashed line segment */}
                   {!isLast && (
                     <div className="absolute top-8 bottom-[-3rem] md:bottom-[-4rem] right-[-4px] w-[2px] border-l-[1.5px] border-dotted border-text-ink/20" />
                   )}
@@ -52,13 +56,15 @@ const Experience: React.FC = () => {
                 {/* Content Column */}
                 <div className="pl-4 md:pl-0 pt-1 md:pt-0 group">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                    <h3 className={`font-heading text-2xl transition-colors duration-300 ${entry.upcoming ? "text-text-ink group-hover:text-secondary-sage" : "text-text-ink group-hover:text-accent-terracotta"}`}>
+                    <h3
+                      className={`font-heading text-2xl transition-colors duration-300 ${entry.upcoming ? "text-text-ink group-hover:text-secondary-sage" : "text-text-ink group-hover:text-accent-terracotta"}`}
+                    >
                       {entry.role}
                     </h3>
 
                     {entry.tags && (
                       <div className="flex flex-wrap gap-2">
-                        {entry.tags.map(tag => (
+                        {entry.tags.map((tag) => (
                           <span
                             key={tag}
                             className={`px-3 py-1 text-xs font-mono tracking-wide rounded-full ${
@@ -76,17 +82,28 @@ const Experience: React.FC = () => {
                     )}
                   </div>
 
-                  <div className={`font-medium mb-3 ${entry.upcoming ? "text-text-ink/50" : "text-text-ink/80"}`}>
+                  <div
+                    className={`font-medium mb-3 ${entry.upcoming ? "text-text-ink/50" : "text-text-ink/80"}`}
+                  >
                     {entry.organisation} {entry.international && "🇪🇸"}
                   </div>
 
-                  <p className={`leading-relaxed ${entry.upcoming ? "text-text-ink/40" : "text-text-ink/70"}`}>
+                  <p
+                    className={`leading-relaxed ${entry.upcoming ? "text-text-ink/40" : "text-text-ink/70"}`}
+                  >
                     {entry.description}
                   </p>
 
                   {entry.extraDetail && (
                     <p className="mt-3 text-sm italic text-text-ink/50 font-body">
                       {entry.extraDetail}
+                    </p>
+                  )}
+
+                  {/* Asterisk footnote for upcoming entry */}
+                  {entry.upcoming && (
+                    <p className="mt-3 font-mono text-[10px] text-text-ink/30 tracking-wide">
+                      * subject to confirmed enrolment
                     </p>
                   )}
                 </div>

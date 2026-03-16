@@ -11,9 +11,12 @@ const Blog: React.FC = () => {
         <span className="block font-mono text-xs uppercase tracking-widest text-text-ink/40 mb-2">
           04 —— Writing
         </span>
-        <h2 className="font-heading text-4xl text-text-ink mb-4">Blog.</h2>
+        <h2 className="font-heading text-4xl text-text-ink mb-3">Blog.</h2>
         <p className="text-lg text-text-ink/60 font-body max-w-xl">
           Occasionally I write about things I'm building or figuring out.
+        </p>
+        <p className="mt-1 text-sm italic text-text-ink/35 font-body">
+          — no RSS yet; just words, when I have them.
         </p>
       </div>
 
@@ -51,6 +54,7 @@ const Blog: React.FC = () => {
               </p>
             </div>
 
+            {/* Corner-folded "Draft" ribbon (CSS) */}
             <AnimatePresence>
               {hoveredIndex === idx && post.comingSoon && (
                 <motion.div
