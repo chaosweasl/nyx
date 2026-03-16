@@ -12,6 +12,10 @@ export default {
         accent: '#C85F38',
         sage: '#8BAF7C',
         amber: '#D4A862',
+        'bg-cream': '#FAF6F0',
+        'text-ink': '#1C1917',
+        'accent-terracotta': '#C85F38',
+        'secondary-sage': '#8BAF7C',
       },
       fontFamily: {
         heading: ['Fraunces', 'serif'],

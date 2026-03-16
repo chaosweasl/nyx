@@ -4,51 +4,63 @@ import { ABOUT_DATA } from "../data/content";
 
 const About: React.FC = () => {
   return (
-    <section id="about" className="py-24 max-w-5xl mx-auto px-6 lg:px-0">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
-        className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start"
-      >
-        <div className="space-y-6">
-          <h2 className="text-3xl md:text-4xl font-heading mb-8">About me.</h2>
-          {ABOUT_DATA.bio.map((paragraph, index) => (
-            <p key={index} className="text-lg leading-relaxed text-foreground/90">
+    <section className="py-32 w-full max-w-4xl mx-auto px-6" id="about">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
+        <motion.div
+          className="col-span-1 md:col-span-3 space-y-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          {ABOUT_DATA.bio.map((paragraph, idx) => (
+            <p
+              key={idx}
+              className="text-lg leading-relaxed text-text-ink/80 font-body"
+            >
               {paragraph}
             </p>
           ))}
+        </motion.div>
 
-          <div className="mt-12">
-            <h3 className="text-xl font-heading mb-4 text-accent">A few fun facts:</h3>
-            <ul className="list-disc pl-5 space-y-2 text-foreground/80">
-              {ABOUT_DATA.funFacts.map((fact, index) => (
-                <li key={index}>{fact}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="bg-white/50 border border-black/5 p-8 rounded-2xl shadow-sm space-y-8">
+        <motion.div
+          className="col-span-1 md:col-span-2 mt-8 md:mt-16 space-y-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <div>
-            <h3 className="text-xl font-heading mb-6 flex items-center gap-2">
-              <span className="w-8 h-[1px] bg-foreground/20 block"></span>
-              Tech Stack
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {ABOUT_DATA.techStack.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 bg-foreground/5 text-foreground/80 rounded-full font-mono text-sm border border-black/5"
-                >
-                  {tech}
-                </span>
+            <div className="flex flex-col gap-4">
+              {ABOUT_DATA.techStack.map((group, groupIdx) => (
+                <div key={groupIdx} className="flex flex-wrap gap-2">
+                  {group.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 text-sm font-mono tracking-wide rounded-md bg-text-ink/5 border border-text-ink/10 text-text-ink/70"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               ))}
             </div>
           </div>
-        </div>
-      </motion.div>
+
+          <div>
+            <ul className="space-y-3">
+              {ABOUT_DATA.funFacts.map((fact, idx) => (
+                <li key={idx} className="flex items-start text-text-ink/70">
+                  <span className="text-accent-terracotta mr-3 font-mono">
+                    —
+                  </span>
+                  <span className="text-sm font-body">{fact}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 };

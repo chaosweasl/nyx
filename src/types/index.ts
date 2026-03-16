@@ -7,6 +7,7 @@ export interface Project {
   liveUrl?: string;
   featured: boolean;
   comingSoon?: boolean;
+  numeral?: string;
 }
 
 export interface ExperienceEntry {
@@ -17,10 +18,12 @@ export interface ExperienceEntry {
   tags?: string[];
   international?: boolean;
   upcoming?: boolean;
+  extraDetail?: string;
 }
 
 export interface BlogPost {
   title: string;
+  category?: string;
   teaser: string;
   date: string | "Soon";
   comingSoon?: boolean;
