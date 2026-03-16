@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Canvas } from '@react-three/fiber';
 import { HERO_DATA } from "../data/content";
+import SketchbookModel from "./SketchbookModel";
 
 const TypewriterText = ({ text }: { text: string }) => {
   const [displayedText, setDisplayedText] = useState("");
@@ -44,6 +46,15 @@ const Hero: React.FC = () => {
   return (
     <section className="min-h-screen flex flex-col justify-center items-center py-20 relative overflow-hidden">
       {/* Background terminal/sketchbook elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
+        <Suspense fallback={null}>
+          <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+            <ambientLight intensity={1} />
+            <SketchbookModel />
+          </Canvas>
+        </Suspense>
+      </div>
+
       <div className="absolute top-10 left-10 font-mono text-[10rem] text-text-ink/[0.03] select-none pointer-events-none rotate-[-10deg]">
         {'{}'}
       </div>
