@@ -1,0 +1,137 @@
+~~~
+description = "Monitor FastAPI client connections and auto-cancel abandoned streaming tasks with structured concurrency"
+published_at = "2025-07-06"
+tags = ["fastapi", "python", "async", "streaming"]
+
+[title]
+text = "Stop Burning CPU on Dead FastAPI Streams"
+config = "4 3ci 3 2c 8 3c 3i"
+~~~
+
+## The Problem
+
+Client disconnects from your streaming endpoint. Your server keeps processing anyway.
+
+100 dead connections = wasted CPU + memory leaks + slower responses for everyone else.
+
+## Solution
+
+Context manager that kills tasks when clients disconnect:
+
+```python
+import logging
+from contextlib import asynccontextmanager
+from anyio import create_task_group
+from fastapi import Request
+
+logger = logging.getLogger(__name__)
+
+@asynccontextmanager
+async def cancel_on_disconnect(request: Request):
+    """
+    Async context manager for async code that needs to be cancelled 
+    if client disconnects prematurely.
+    """
+    async with create_task_group() as tg:
+        
+        async def watch_disconnect():
+            while True:
+                message = await request.receive()
+                
+                if message["type"] == "http.disconnect":
+                    client = f"{request.client.host}:{request.client.port}" if request.client else "-:-"
+                    logger.debug(f'{client} - "{request.method} {request.url.path}" 499 DISCONNECTED')
+                    
+                    tg.cancel_scope.cancel()
+                    break
+        
+        tg.start_soon(watch_disconnect)
+        
+        try:
+            yield
+        finally:
+            tg.cancel_scope.cancel()
+```
+
+## How it works
+
+1. **Task group** prevents abandoned tasks from leaking
+2. **Background watcher** monitors for `http.disconnect` messages
+3. **Cancel everything** when disconnect happens
+4. **Cleanup always runs** whether task finishes or gets killed
+
+⚠️ `request.receive()` isn't public API. Works with uvicorn + FastAPI but test with your actual proxy setup.
+
+## Real Usage Example
+
+```python
+from fastapi import FastAPI, Request
+from fastapi.responses import StreamingResponse
+
+app = FastAPI()
+
+@app.post("/analyze-video")
+async def analyze_video(request: Request):
+    async def generate():
+        try:
+            async with cancel_on_disconnect(request):
+                # Process 1000 video frames - expensive!
+                for frame_idx in range(1000):
+                    # This could take 500ms per frame
+                    detections = await run_yolo_inference(frame_idx)
+                    yield f"data: Frame {frame_idx}: found {len(detections)} objects\n"
+        except Exception as e:
+            logger.info(f"Video analysis cancelled: {e}")
+            
+    return StreamingResponse(generate(), media_type="text/plain")
+```
+
+## What breaks without this
+
+- Memory leaks from dead tasks holding references
+- DB locks from half-finished transactions  
+- Wasted CPU while dashboard shows "everything fine"
+- Cascading failures from resource contention
+
+## Usage
+
+```python
+async with cancel_on_disconnect(request):
+    async for batch in process_million_rows():
+        yield f"data: Processed batch {batch.id}\n"
+```
+
+Without this: million-row job runs after user closes browser.  
+With this: disconnection kills task instantly.
+
+## Database gotcha
+
+Shield critical DB operations:
+
+```python
+async with cancel_on_disconnect(request):
+    async for chunk in ai_processing():
+        yield chunk
+        
+# Don't let this get cancelled mid-transaction
+await asyncio.shield(save_results())
+```
+
+## Common mistakes
+
+1. **Forgetting to shield DB commits** = corrupted state
+2. **Not testing with nginx** = works locally, breaks in prod
+3. **Ignoring partial state** = angry users restarting from 0%
+4. **Missing cleanup** = leaked file handles and connections
+
+## Testing
+
+```bash
+# Start your stream, then kill the connection
+curl -X POST http://localhost:8000/analyze-video &
+PID=$!
+sleep 2
+kill $PID  # Simulate disconnect
+```
+
+Check your logs for disconnect messages and verify the expensive work stops.

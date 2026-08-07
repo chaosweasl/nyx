@@ -1,0 +1,19 @@
+/*
+ * Copyright (c) 2025. Jason Cameron
+ * All Rights Reserved
+ */
+import Site from '$lib/config/common';
+import createRedirects from '$utils/redirects';
+
+const redirects = createRedirects([
+	{ paths: ['/github', '/gh'], url: Site.out.github },
+	{ paths: ['/linkedin', '/li'], url: Site.out.linkedin },
+	{ paths: ['/insta', '/ig'], url: Site.out.instagram },
+	{ paths: ['/email', '/mail'], url: `mailto:${Site.out.email}` },
+	{ paths: '/repo', url: Site.repo.url },
+	{ paths: '/resume', url: '/resume.pdf' },
+	{ paths: '/foodle', url: 'https://foodle.jasoncameron.dev' },
+	{ paths: '/random-color', url: 'https://pickacolor.jasoncameron.dev' }
+]);
+
+export default redirects;
